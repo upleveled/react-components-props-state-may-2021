@@ -1,6 +1,12 @@
 import './App.css';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
+import AntiPatternDomManipulationDontUseThis from './AntiPatternDomManipulationDontUseThis';
+import DataFetching from './DataFetching';
 import RandomEmojiGenerator from './RandomEmojiGenerator';
+import SetStateIsAsync from './SetStateIsAsync';
+import UseEffect from './UseEffect';
+import UseStateWithDataStructures from './UseStateWithDataStructures';
 
 const languages = [
   { id: 1, name: 'HTML' },
@@ -17,10 +23,14 @@ function FancyButton(props) {
         fontSize: props.fontSize,
       }}
     >
-      {props.label}
+      {props.children}
     </button>
   );
 }
+
+FancyButton.propTypes = {
+  fontSize: PropTypes.string.isRequired,
+};
 
 function App() {
   // State #1
@@ -54,9 +64,9 @@ function App() {
         id="pet"
         // State #2: Synchronize the value to the HTML
         checked={hasPet}
-        onClick={() => {
+        onChange={(event) => {
           // State #3: Update the value
-          setHasPet(!hasPet);
+          setHasPet(event.currentTarget.checked);
         }}
       />
       <label htmlFor="pet">I'm bringing my pet onboard</label>
@@ -96,15 +106,60 @@ function App() {
       <FancyButton
         // Props #1: Set the prop value
         fontSize="36px"
-        label="Quite large text"
-      />
+      >
+        Quite large text
+      </FancyButton>
       <br />
       <br />
       <FancyButton
         // Props #1: Set the prop value
         fontSize="18px"
-        label="Not so large text"
-      />
+      >
+        Not so large text
+      </FancyButton>
+      <br />
+      <br />
+      <br />
+      <br />
+      <hr />
+      <br />
+      <AntiPatternDomManipulationDontUseThis />
+      <br />
+      <br />
+      <br />
+      <br />
+      <hr />
+      <br />
+      <SetStateIsAsync />
+      <br />
+      <br />
+      <br />
+      <br />
+      <hr />
+      <br />
+      <UseEffect />
+      <br />
+      <br />
+      <br />
+      <br />
+      <hr />
+      <br />
+      <DataFetching />
+      <br />
+      <br />
+      <br />
+      <br />
+      <hr />
+      <br />
+      <hr />
+      <br />
+      <UseStateWithDataStructures />
+      <br />
+      <br />
+      <br />
+      <br />
+      <hr />
+      <br />
     </div>
   );
 }
